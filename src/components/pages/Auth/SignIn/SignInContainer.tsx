@@ -105,7 +105,7 @@ const SignInContainer: FC<IProps> = () => {
                 styles.btn,
                 fields.email && fields.password ? {opacity: 1} : {opacity: 0.5},
               ]}>
-              <Text style={styles.btnText}>Sign In</Text>
+              <Text style={styles.btnText}> Sign In</Text>
             </TouchableOpacity>
           )}
         </View>
