@@ -1,8 +1,5 @@
 import React, {FC, useState} from 'react';
-
-import {useSelector} from 'react-redux';
 import {
-  Button,
   ImageBackground,
   Text,
   TextInput,
@@ -11,9 +8,8 @@ import {
 } from 'react-native';
 import {styles} from './SignInContainerStyles';
 import {login} from '../../../../store/user/userSlice';
-import {RootState} from '../../../../store/reducers';
 import {KeyValueModel} from '../../../../models';
-import {useAppDispatch} from '../../../../store/configureStore';
+import {useAppDispatch, useAppSelector} from '../../../../store/configureStore';
 
 interface IProps {}
 
@@ -25,7 +21,7 @@ interface IFields {
 const SignInContainer: FC<IProps> = () => {
   const dispatch = useAppDispatch();
 
-  const store = useSelector((state: RootState) => state);
+  const store = useAppSelector(state => state);
   const [fields, setFields] = useState<IFields>({
     email: '',
     password: '12345678',
@@ -66,7 +62,7 @@ const SignInContainer: FC<IProps> = () => {
           <View style={styles.authHeader}>
             <Text style={styles.authTitle}>Good morning</Text>
             <Text style={styles.authText}>Population Health Solutions</Text>
-            <Text style={styles.authLine}>qwe</Text>
+            <Text style={styles.authLine} />
           </View>
           <View style={styles.inputContainer}>
             <Text style={styles.label}>Email</Text>
@@ -76,7 +72,7 @@ const SignInContainer: FC<IProps> = () => {
               value={fields.email}
             />
             {errors?.email ? (
-              <Text style={styles.label}>{errors.email}</Text>
+              <Text style={styles.errorMsg}>{errors.email}</Text>
             ) : null}
           </View>
           <View style={styles.inputContainer}>
@@ -90,7 +86,7 @@ const SignInContainer: FC<IProps> = () => {
               />
             </View>
             {errors?.password ? (
-              <Text style={styles.label}>{errors.password}</Text>
+              <Text style={styles.errorMsg}>{errors.password}</Text>
             ) : null}
           </View>
           {store.user.loading ? (

@@ -1,17 +1,13 @@
 import React from 'react';
-import {useSelector} from 'react-redux';
-import {Users, SignInContainer, EditUser} from '../components/pages';
 
-import {RootState} from '../store/reducers';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createStackNavigator} from '@react-navigation/stack';
+import {useAppSelector} from '../store/configureStore';
+import {Users, SignInContainer, EditUser} from '../components/pages';
 
 const Stack = createStackNavigator();
 
 export const Router = (): JSX.Element => {
-  const access_token = useSelector(
-    (state: RootState) => state.user.access_token,
-  );
+  const access_token = useAppSelector(state => state.user.access_token);
 
   let routes: JSX.Element = (
     <Stack.Navigator screenOptions={{headerShown: false}}>

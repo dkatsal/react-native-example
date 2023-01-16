@@ -1,11 +1,9 @@
 import React, {FC, useCallback, useState} from 'react';
 
-import {useSelector} from 'react-redux';
 import {Alert, Button, ScrollView, Text, View} from 'react-native';
 import {styles} from './UsersStyles';
 import {logout} from '../../../store/user/userSlice';
-import {useAppDispatch} from '../../../store/configureStore';
-import {RootState} from '../../../store/reducers';
+import {useAppDispatch, useAppSelector} from '../../../store/configureStore';
 import {
   deleteUserById,
   getUsersList,
@@ -23,9 +21,7 @@ const Users: FC<IProps> = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
 
-  const usersList = useSelector(
-    (state: RootState) => state.manageUsers.usersList,
-  );
+  const usersList = useAppSelector(state => state.manageUsers.usersList);
 
   const [searchUsers, setSearchUsers] = useState<FilterUsers>({
     ordering: {
@@ -97,7 +93,7 @@ const Users: FC<IProps> = () => {
         <Button
           onPress={() => dispatch(logout())}
           title="logout"
-          color="black"
+          color="#414040"
         />
       </View>
     </View>

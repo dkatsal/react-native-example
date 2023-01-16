@@ -22,7 +22,7 @@ const UserItem: FC<IProps> = ({userData, deleteUser, editUser}) => {
         </Text>
       </View>
       <View style={styles.itemRight}>
-        <Text>{userData.role}</Text>
+        <Text style={styles.role}>{userData.role}</Text>
         <TouchableOpacity
           style={styles.icon}
           onPress={() => {

@@ -27,8 +27,6 @@ export const getUsersList = createAsyncThunk<UsersList, ManageUsersPayload>(
       const response = await Api.post(`manager/list?page=${page}`, data);
       return response.data.resource;
     } catch (e: any) {
-      console.log('error message', e.response);
-
       return rejectWithValue(e);
     }
   },
@@ -43,7 +41,6 @@ export const getUserById = createAsyncThunk<{}, UserByIdPayload>(
       const response = await Api.post(`manager/get`, {id});
       return callback(response.data.resource);
     } catch (e: any) {
-      console.log('error message', e.response);
       return rejectWithValue(e);
     }
   },
@@ -60,7 +57,6 @@ export const deleteUserById = createAsyncThunk<{}, DeletePayload>(
         callback();
       }
     } catch (e: any) {
-      console.log('error message', e.response);
       return rejectWithValue(e);
     }
   },
@@ -78,7 +74,6 @@ export const updateUser = createAsyncThunk<{}, UserAddUpdatePayload>(
         callback();
       }
     } catch (e: any) {
-      console.log('error message', e.response);
       return rejectWithValue(e);
     }
   },
@@ -99,13 +94,20 @@ const manageUsers = createSlice({
         state.usersList = payload;
         state.loading = false;
       })
-      .addCase(getUsersList.rejected, state => {
+      .addCase(getUsersList.rejected, (state, e: any) => {
+        console.log('error message', e.response);
         state.loading = false;
       })
       //
-      .addCase(getUserById.rejected, state => {})
-      .addCase(deleteUserById.rejected, state => {})
-      .addCase(updateUser.rejected, state => {});
+      .addCase(getUserById.rejected, (state, e: any) => {
+        console.log('error message', e.response);
+      })
+      .addCase(deleteUserById.rejected, (state, e: any) => {
+        console.log('error message', e.response);
+      })
+      .addCase(updateUser.rejected, (state, e: any) => {
+        console.log('error message', e.response);
+      });
   },
 });
 

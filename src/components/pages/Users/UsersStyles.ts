@@ -2,7 +2,6 @@ import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     height: '100%',
     backgroundColor: '#E8EAED',
   },
@@ -32,11 +31,16 @@ export const styles = StyleSheet.create({
     width: '55%',
   },
   id: {
+    color: '#414040',
     width: 30,
   },
   name: {
+    color: '#414040',
     marginLeft: 5,
     width: '100%',
+  },
+  role: {
+    color: '#414040',
   },
   itemRight: {
     flexDirection: 'row',
@@ -57,11 +61,13 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
   },
   label: {
+    color: '#414040',
     fontSize: 16,
     fontWeight: '600',
     lineHeight: 16,
   },
   input: {
+    color: '#414040',
     height: 40,
     marginTop: 10,
     borderWidth: 1,
@@ -79,7 +85,7 @@ export const styles = StyleSheet.create({
     padding: 10,
   },
   btnText: {
-    color: 'white',
+    color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
     alignSelf: 'center',

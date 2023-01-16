@@ -39,13 +39,8 @@ export const login = createAsyncThunk<LoginSuccessPayload, LoginPayload>(
 
     try {
       const response = await Api.post(`auth/login`, {email, password});
-      // AsyncStorage.setItem(
-      //   'access_token',
-      //   response.data.tokenData.access_token,
-      // );
       return response.data;
     } catch (e: any) {
-      console.log('error message', e.response);
       if (e.response.status === 400) {
         if (callback) {
           callback(e.response.data.errors);
@@ -56,22 +51,25 @@ export const login = createAsyncThunk<LoginSuccessPayload, LoginPayload>(
   },
 );
 
-export const logout = createAsyncThunk('user/logout', async (_, {dispatch}) => {
-  try {
-    const response = await Api.get(`auth/logout`);
-    dispatch(logoutSuccess());
-    return response;
-  } catch (e: any) {
-    console.log('error message logout', e);
-  }
-});
+export const logout = createAsyncThunk(
+  'user/logout',
+  async (_, {rejectWithValue, dispatch}) => {
+    try {
+      const response = await Api.get(`auth/logout`);
+      dispatch(logoutSuccess());
+      return response;
+    } catch (e: any) {
+      console.log('error message logout', e);
+      return rejectWithValue(e);
+    }
+  },
+);
 
 const user = createSlice({
   name: 'user',
   initialState,
   reducers: {
     logoutSuccess: state => {
-      // state.userData = null;
       state.access_token = null;
       state.loading = false;
     },
@@ -83,11 +81,15 @@ const user = createSlice({
       })
       .addCase(login.fulfilled, (state, {payload}) => {
         state.access_token = payload.tokenData.access_token;
-        // state.userData = payload.userData;
         state.loading = false;
       })
-      .addCase(login.rejected, state => {
+      .addCase(login.rejected, (state, e: any) => {
         state.loading = false;
+        console.log('error message', e.response);
+      })
+      .addCase(logout.rejected, (state, e: any) => {
+        state.loading = false;
+        console.log('error message logout', e.response);
       });
   },
 });

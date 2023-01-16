@@ -8,7 +8,10 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "prettier": "prettier 'src/**/*.tsx'"
+    "prettier": "prettier 'src/**/*.tsx'",
+    "make-apk": "cd android && ./gradlew assembleRelease && cd ..",
+    "make-aab": "cd android && ./gradlew bundleRelease && cd ..",
+    "clean-mac": "cd android && ./gradlew clean"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.17.11",
